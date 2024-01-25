@@ -1,0 +1,32 @@
+header {
+    background-color: transparent;
+}
+
+body {
+    line-height: 1.2rem;
+}
+
+.stApp {
+    margin: auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: auto;
+    background: linear-gradient(0deg, rgba(238,174,202,1) 0%, rgba(194,180,217,1) 49%, rgba(148,187,233,1) 100%);
+}
+
+h1 {
+    color: #fff;
+}
+
+h4 {
+    color: #4f97ec;
+}
+h5 {
+    color: #6d4ea6;
+}
+h6 {
+    color: #ac7ec7;
+}
+img{
+    border: 2px solid rgba(61, 9, 109, 0.322);
+    display: inline;
+}
