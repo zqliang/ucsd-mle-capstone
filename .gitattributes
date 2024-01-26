@@ -1,2 +1,4 @@
 *.csv filter=lfs diff=lfs merge=lfs -text
 data/anime-dataset-2023.csv filter=lfs diff=lfs merge=lfs -text
+data/users-score-2023.csv filter=lfs diff=lfs merge=lfs -text
+data/users-details-2023.csv filter=lfs diff=lfs merge=lfs -text
