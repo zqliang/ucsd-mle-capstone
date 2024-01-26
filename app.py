@@ -10,7 +10,7 @@ from scipy.sparse import hstack
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-@st.cache_data
+
 def load_data(curr_path):
     logger.debug(curr_path)
     data_file_path = os.path.join(curr_path, 'data', 'anime-dataset-2023.csv')
@@ -57,7 +57,6 @@ def filter_data(df_anime):
 
     return filtered_df
 
-@st.cache_resource
 def find_similarity(filtered_df):
     # create the TF-IDF matrix for text comparison
     # max_features is the max # of unique words to consider
@@ -122,7 +121,6 @@ def content_anime_recommender(input_anime, top_n=10):
     return recommended_anime
 
 # get image url
-@st.cache_data
 def get_image_url(anime_name):
     return filtered_df.loc[filtered_df['Display Name'] == anime_name, 'Image URL'].values[0]
 
