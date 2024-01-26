@@ -1,0 +1,7 @@
+streamlit
+pandas
+numpy
+sklearn.feature_extraction.text
+sklearn.preprocessing
+sklearn.metrics.pairwise
+scipy.sparse
