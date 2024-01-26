@@ -17,7 +17,8 @@ The content-based recommender is used in the deployed app.
 
 ### Running locally
 
-Install Python 3.9 which comes with pip installed. Use pip to install the dependencies from requirements.txt
+Install Python 3.9 which comes with pip installed. Use a separate environment for installing dependencies, e.g. conda. 
+Use pip to install the dependencies from requirements.txt
 
 ```
 git clone https://github.com/zqliang/ucsd-mle-capstone
