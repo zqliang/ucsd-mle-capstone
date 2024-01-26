@@ -10,7 +10,6 @@ from scipy.sparse import hstack
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-@st.cache_data
 def load_data(curr_path):
     logger.debug(curr_path)
     data_file_path = os.path.join(curr_path, 'data', 'anime-dataset-2023.csv')
@@ -19,15 +18,12 @@ def load_data(curr_path):
     df_anime = pd.read_csv(data_file_path)
     return df_anime
 
-@st.cache_data
 def filter_data(df_anime):
 
     #filtering for duplicates
     duplicates = df_anime[df_anime.duplicated(['Name'])].sort_values(by='Name')
-    logger.debug("Duplicates based on Name:")
     logger.debug(len(duplicates))
     duplicates = duplicates[['anime_id', 'Name']]
-    logger.debug(duplicates)
 
     df_anime_new = df_anime.drop_duplicates(['Name'])
     logger.debug("Without duplicates, anime shape: {} \n".format(df_anime_new.shape))
@@ -60,7 +56,6 @@ def filter_data(df_anime):
 
     return filtered_df
 
-@st.cache_resource
 def find_similarity(filtered_df):
     # create the TF-IDF matrix for text comparison
     # max_features is the max # of unique words to consider
@@ -112,8 +107,6 @@ def find_similarity(filtered_df):
     similarity_df = pd.DataFrame(similarity, 
                                 index=filtered_df['Display Name'], 
                                 columns=filtered_df['Display Name'])
-    logger.info(similarity)
-    logger.info(filtered_df.head())
     anime_list = similarity_df.columns.values
     return anime_list, similarity_df
 
@@ -127,7 +120,6 @@ def content_anime_recommender(input_anime, top_n=10):
     return recommended_anime
 
 # get image url
-@st.cache_data
 def get_image_url(anime_name):
     return st.session_state.filtered_df.loc[st.session_state.filtered_df['Display Name'] == anime_name, 'Image URL'].values[0]
 
