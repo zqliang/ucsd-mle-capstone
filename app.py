@@ -10,6 +10,16 @@ from scipy.sparse import hstack
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
+@st.cache_data
+def load_data(curr_path):
+    logger.debug(curr_path)
+    data_file_path = os.path.join(curr_path, 'data', 'anime-dataset-2023.csv')
+    logger.debug(data_file_path)
+
+    df_anime = pd.read_csv(data_file_path)
+    return df_anime
+
+@st.cache_data
 def filter_data(df_anime):
 
     #filtering for duplicates
@@ -50,7 +60,7 @@ def filter_data(df_anime):
 
     return filtered_df
 
-
+@st.cache_resource
 def find_similarity(filtered_df):
     # create the TF-IDF matrix for text comparison
     # max_features is the max # of unique words to consider
@@ -133,25 +143,17 @@ def create_display_name(row):
     return row['English name'] if row['English name'].lower() != "unknown" else row['Name']
 
 
-# read data file
-curr_path = os.path.dirname(os.path.abspath(__file__))
-logger.debug(curr_path)
-data_file_path = os.path.join(curr_path, 'data', 'anime-dataset-2023.csv')
-logger.debug(data_file_path)
-
-df_anime = pd.read_csv(data_file_path)
-
-filtered_df = filter_data(df_anime)
-# create new col Display Name for showing to end user
-filtered_df['Display Name'] = filtered_df.apply(create_display_name, axis=1)
-logger.debug(filtered_df.head())
-
-
 
 # streamlit app
 st.set_page_config(layout="wide")
 
-styles_file_path = os.path.join(curr_path, 'assets/css', 'styles.css')
+df_anime = load_data(os.path.dirname(os.path.abspath(__file__)))
+filtered_df = filter_data(df_anime)
+# create new col Display Name for showing to end user
+filtered_df['Display Name'] = filtered_df.apply(create_display_name, axis=1)
+
+
+styles_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'assets/css', 'styles.css')
 
 with open (styles_file_path, 'r') as f:
     custom_css = f.read()
