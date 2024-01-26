@@ -19,7 +19,6 @@ def load_data(curr_path):
     df_anime = pd.read_csv(data_file_path)
     return df_anime
 
-@st.cache_data
 def filter_data(df_anime):
 
     #filtering for duplicates
