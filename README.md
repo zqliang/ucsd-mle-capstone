@@ -16,6 +16,12 @@ The content-based recommender is used in the deployed app.
 
 
 ### Running locally
+
+Install Python 3.9 which comes with pip installed. Use pip to install the dependencies from requirements.txt
+
+```
 git clone https://github.com/zqliang/ucsd-mle-capstone
 cd ucsd-mle-capstone
+pip install -r requirements.txt
 streamlit run app.py
+```
