@@ -1,0 +1,16 @@
+[server]
+headless = true
+
+[theme]
+
+primaryColor = '#825c91'
+
+# header and text input color
+backgroundColor = '#825c91'
+
+# sidebar bakcground 
+secondaryBackgroundColor = '#c2b4d9ff'
+
+textColor = '#FFFFFF'
+
+font = "sans serif"
