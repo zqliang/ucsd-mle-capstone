@@ -10,7 +10,7 @@ from scipy.sparse import hstack
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-
+@st.cache_data
 def load_data(curr_path):
     logger.debug(curr_path)
     data_file_path = os.path.join(curr_path, 'data', 'anime-dataset-2023.csv')
@@ -19,6 +19,7 @@ def load_data(curr_path):
     df_anime = pd.read_csv(data_file_path)
     return df_anime
 
+@st.cache_data
 def filter_data(df_anime):
 
     #filtering for duplicates
@@ -57,6 +58,7 @@ def filter_data(df_anime):
 
     return filtered_df
 
+@st.cache_resource
 def find_similarity(filtered_df):
     # create the TF-IDF matrix for text comparison
     # max_features is the max # of unique words to consider
@@ -205,81 +207,3 @@ for anime in recommended_anime:
 
     st.markdown('<hr>', unsafe_allow_html=True)
     count+=1
-
-# check if data in session_state
-# if 'loaded_df' not in st.session_state:
-#     st.session_state.loaded_df = None
-
-# if 'filtered_df' not in st.session_state:
-#     st.session_state.filtered_df = None
-
-# if 'selected_anime' not in st.session_state:
-#     st.session_state.selected_anime = None
-
-# if 'num_recommendations' not in st.session_state:
-#     st.session_state.num_recommendations = 10
-
-# # load data if not loaded
-# if st.session_state.loaded_df is None:
-#     curr_path = os.path.dirname(os.path.abspath(__file__))
-#     st.session_state.loaded_df = load_data(curr_path)
-
-# # filter data if not filtered
-# if st.session_state.filtered_df is None:
-#     st.session_state.filtered_df = filter_data(st.session_state.loaded_df)
-#     filtered_df = st.session_state.filtered_df
-
-# # create new col Display Name for showing to end user
-# st.session_state.filtered_df['Display Name'] = st.session_state.filtered_df.apply(create_display_name, axis=1)
-
-# with open (styles_file_path, 'r') as f:
-#     custom_css = f.read()
-
-# # Load custom styles from styles.css
-# styles_file_path = os.path.join(curr_path, 'assets/css', 'styles.css')
-# st.markdown(f'<style>{custom_css}</style>', unsafe_allow_html=True)
-
-# # Sidebar with user input
-# with st.sidebar:
-#     st.sidebar.markdown(
-#         """
-#         <style>
-#         [data-testid="stSidebar"][aria-expanded="true"]{
-#             min-width: 400px;
-#             max-width: 400px;
-#         }
-#         </style>
-#         """,
-#         unsafe_allow_html=True,
-#     )
-
-#     input_anime = st.sidebar.selectbox("Select an anime:", st.session_state.filtered_df['Display Name'])
-#     st.session_state.selected_anime = input_anime
-
-#     # Num of recommendations to show
-#     top_n = st.sidebar.slider("Number of recommendations", 1, 30, st.session_state.num_recommendations)
-
-# # Display recommendations
-# recommended_anime = content_anime_recommender(input_anime, top_n=top_n)
-
-# recommended_heading = '<h4>Recommended Anime for ' + st.session_state.selected_anime + ':</h4>'
-# st.markdown(recommended_heading, unsafe_allow_html=True)
-
-# count = 1
-# for anime in recommended_anime:
-#     anime_title = '<h5>' + str(count) + '. ' + anime + '</h5>'
-#     st.markdown(anime_title, unsafe_allow_html=True)
-
-#     col1, col2 = st.columns([1, 3])
-
-#     image_url = get_image_url(anime)
-#     col1.image(image_url, use_column_width=False, width=200)
-
-#     genres_title = '<h6>' + get_genres(anime) + '</h6>'
-#     col1.markdown(genres_title, unsafe_allow_html=True)
-
-#     synopsis_title = '<h7>' + get_synopsis(anime).replace('\n', '<br>') + '</h7>'
-#     col2.markdown(synopsis_title, unsafe_allow_html=True)
-
-#     st.markdown('<hr>', unsafe_allow_html=True)
-#     count += 1
